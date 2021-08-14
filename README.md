@@ -9,11 +9,3 @@ cd build
 cmake ..\zlib -G "Visual Studio 16 2019" -A x64 -DCMAKE_INSTALL_PREFIX="../install"
 
 Run zlib.sln
-
-## For Mac
-
-cmake ../zlib -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="../install"
-
-make
-
-make install
