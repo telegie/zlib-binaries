@@ -1,7 +1,6 @@
 # zlib-binaries
 
 mkdir build
-
 cd build
 
 ## For Windows

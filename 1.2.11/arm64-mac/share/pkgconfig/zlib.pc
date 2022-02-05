@@ -1,8 +1,8 @@
-prefix=/Users/hanseuljun/repos/telespace/deps/zlib-binaries/install
-exec_prefix=/Users/hanseuljun/repos/telespace/deps/zlib-binaries/install
-libdir=/Users/hanseuljun/repos/telespace/deps/zlib-binaries/install/lib
-sharedlibdir=/Users/hanseuljun/repos/telespace/deps/zlib-binaries/install/lib
-includedir=/Users/hanseuljun/repos/telespace/deps/zlib-binaries/install/include
+prefix=/Users/hanseuljun/repos/telegie/cpp/deps/zlib-binaries/install
+exec_prefix=/Users/hanseuljun/repos/telegie/cpp/deps/zlib-binaries/install
+libdir=/Users/hanseuljun/repos/telegie/cpp/deps/zlib-binaries/install/lib
+sharedlibdir=/Users/hanseuljun/repos/telegie/cpp/deps/zlib-binaries/install/lib
+includedir=/Users/hanseuljun/repos/telegie/cpp/deps/zlib-binaries/install/include
 
 Name: zlib
 Description: zlib compression library
