@@ -14,3 +14,9 @@ Run zlib.sln
 cmake ../zlib -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_INSTALL_PREFIX="../install"
 make
 make install
+
+## For Linux
+
+cmake ../zlib -DCMAKE_INSTALL_PREFIX="../1.2.11/x64-linux"
+make
+make install
