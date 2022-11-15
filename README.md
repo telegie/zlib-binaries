@@ -1,7 +1,8 @@
 # zlib-binaries
 
-mkdir build
-cd build
+## How to Build
+
+Run "python3 build.py"
 
 ## For Windows
 
