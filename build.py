@@ -18,10 +18,12 @@ def build_x64_windows_binaries():
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-windows",
                     "-A" "x64",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-windows"])
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-windows"],
+                   check=True)
     subprocess.run(["msbuild",
                     f"{here}/build/x64-windows/INSTALL.vcxproj",
-                    "/p:Configuration=RelWithDebInfo"])
+                    "/p:Configuration=RelWithDebInfo"],
+                   check=True)
     cleanup_zconf_h()
 
 
@@ -31,9 +33,10 @@ def build_arm64_mac_binaries():
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/arm64-mac",
                     "-D", "CMAKE_OSX_ARCHITECTURES=arm64",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/arm64-mac"])
-    subprocess.run(["make", "-C", f"{here}/build/arm64-mac", "-j8"])
-    subprocess.run(["make", "-C", f"{here}/build/arm64-mac", "install"])
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/arm64-mac"],
+                   check=True)
+    subprocess.run(["make", "-C", f"{here}/build/arm64-mac", "-j8"], check=True)
+    subprocess.run(["make", "-C", f"{here}/build/arm64-mac", "install"], check=True)
     cleanup_zconf_h()
 
 
@@ -43,9 +46,10 @@ def build_x64_mac_binaries():
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-mac",
                     "-D", "CMAKE_OSX_ARCHITECTURES=x86_64",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-mac"])
-    subprocess.run(["make", "-C", f"{here}/build/x64-mac", "-j8"])
-    subprocess.run(["make", "-C", f"{here}/build/x64-mac", "install"])
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-mac"],
+                   check=True)
+    subprocess.run(["make", "-C", f"{here}/build/x64-mac", "-j8"], check=True)
+    subprocess.run(["make", "-C", f"{here}/build/x64-mac", "install"], check=True)
     cleanup_zconf_h()
 
 
@@ -54,9 +58,10 @@ def build_x64_linux_binaries():
     subprocess.run(["cmake",
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-linux",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-linux"])
-    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "-j8"])
-    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "install"])
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-linux"],
+                   check=True)
+    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "-j8"], check=True)
+    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "install"], check=True)
     cleanup_zconf_h()
 
 
