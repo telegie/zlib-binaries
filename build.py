@@ -12,11 +12,12 @@ def cleanup_zconf_h():
     shutil.move(f"{here}/zlib/zconf.h.included", f"{here}/zlib/zconf.h")
 
 
-def build_windows_binaries():
+def build_x64_windows_binaries():
     here = Path(__file__).parent.resolve()
     subprocess.run(["cmake",
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-windows",
+                    "-A" "x64",
                     "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-windows"])
     subprocess.run(["msbuild",
                     f"{here}/build/x64-windows/INSTALL.vcxproj",
@@ -60,19 +61,15 @@ def build_x64_linux_binaries():
 
 
 def main():
-    print(f"platform.system(): {platform.system()}")
-    print(f"platform.machine(): {platform.machine()}", flush=True)
+    print(f"platform system: {platform.system()}, machine: ({platform.machine()})", flush=True)
 
     if platform.system() == "Windows":
-        build_windows_binaries()
+        build_x64_windows_binaries()
         return
     elif platform.system() == "Darwin":
-        if platform.machine() == "arm64":
-            build_arm64_mac_binaries()
-            return
-        elif platform.machine() == "x86_64":
-            build_x64_mac_binaries()
-            return
+        build_arm64_mac_binaries()
+        build_x64_mac_binaries()
+        return
     elif platform.system() == "Linux":
         build_x64_linux_binaries()
         return
