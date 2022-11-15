@@ -66,7 +66,7 @@ def build_x64_linux_binaries():
 
 
 def main():
-    print(f"platform system: {platform.system()}, machine: ({platform.machine()})", flush=True)
+    print(f"platform system: {platform.system()}, machine: {platform.machine()}", flush=True)
 
     if platform.system() == "Windows":
         build_x64_windows_binaries()
