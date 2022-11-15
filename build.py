@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import platform
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -8,7 +9,19 @@ def cleanup_zconf_h():
     here = Path(__file__).parent.resolve()
     # The line below is needed not to have zlib repository as modified,
     # which leaves an annoying message in git.
-    subprocess.run(["mv", f"{here}/zlib/zconf.h.included", f"{here}/zlib/zconf.h"])
+    shutil.move(f"{here}/zlib/zconf.h.included", f"{here}/zlib/zconf.h")
+
+
+def build_windows_binaries():
+    here = Path(__file__).parent.resolve()
+    subprocess.run(["cmake",
+                    "-S", f"{here}/zlib",
+                    "-B", f"{here}/build/x64-windows",
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-windows"])
+    subprocess.run(["msbuild",
+                    f"{here}/build/x64-windows/INSTALL.vcxproj",
+                    "/p:Configuration=RelWithDebInfo"])
+    cleanup_zconf_h()
 
 
 def build_arm64_mac_binaries():
@@ -48,9 +61,12 @@ def build_x64_linux_binaries():
 
 def main():
     print(f"platform.system(): {platform.system()}")
-    print(f"platform.machine(): {platform.machine()}")
+    print(f"platform.machine(): {platform.machine()}", flush=True)
 
-    if platform.system() == "Darwin":
+    if platform.system() == "Windows":
+        build_windows_binaries()
+        return
+    elif platform.system() == "Darwin":
         if platform.machine() == "arm64":
             build_arm64_mac_binaries()
             return
