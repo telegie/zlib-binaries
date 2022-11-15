@@ -35,6 +35,17 @@ def build_x64_mac_binaries():
     cleanup_zconf_h()
 
 
+def build_x64_linux_binaries():
+    here = Path(__file__).parent.resolve()
+    subprocess.run(["cmake",
+                    "-S", f"{here}/zlib",
+                    "-B", f"{here}/build/x64-linux",
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-linux"])
+    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "-j8"])
+    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "install"])
+    cleanup_zconf_h()
+
+
 def main():
     print(f"platform.system(): {platform.system()}")
     print(f"platform.machine(): {platform.machine()}")
@@ -46,8 +57,11 @@ def main():
         elif platform.machine() == "x86_64":
             build_x64_mac_binaries()
             return
+    elif platform.system() == "Linux":
+        build_x64_linux_binaries()
+        return
     
-    raise Error(f"zlib build not supported.")
+    raise Exception(f"zlib build not supported.")
 
 
 if __name__ == "__main__":
