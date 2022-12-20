@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import platform
 import shutil
 import subprocess
@@ -32,11 +33,12 @@ def build_arm64_mac_binaries():
     subprocess.run(["cmake",
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/arm64-mac",
+                    "-G", "Ninja",
                     "-D", "CMAKE_OSX_ARCHITECTURES=arm64",
                     "-D", f"CMAKE_INSTALL_PREFIX={here}/install/arm64-mac"],
                    check=True)
-    subprocess.run(["make", "-C", f"{here}/build/arm64-mac", "-j8"], check=True)
-    subprocess.run(["make", "-C", f"{here}/build/arm64-mac", "install"], check=True)
+    subprocess.run(["ninja"], cwd=f"{here}/build/arm64-mac", check=True)
+    subprocess.run(["ninja", "install"], cwd=f"{here}/build/arm64-mac", check=True)
     cleanup_zconf_h()
 
 
@@ -45,11 +47,12 @@ def build_x64_mac_binaries():
     subprocess.run(["cmake",
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-mac",
+                    "-G", "Ninja",
                     "-D", "CMAKE_OSX_ARCHITECTURES=x86_64",
                     "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-mac"],
                    check=True)
-    subprocess.run(["make", "-C", f"{here}/build/x64-mac", "-j8"], check=True)
-    subprocess.run(["make", "-C", f"{here}/build/x64-mac", "install"], check=True)
+    subprocess.run(["ninja"], cwd=f"{here}/build/x64-mac", check=True)
+    subprocess.run(["ninja", "install"], cwd=f"{here}/build/x64-mac", check=True)
     cleanup_zconf_h()
 
 
@@ -58,15 +61,22 @@ def build_x64_linux_binaries():
     subprocess.run(["cmake",
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-linux",
+                    "-G", "Ninja",
                     "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-linux"],
                    check=True)
-    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "-j8"], check=True)
-    subprocess.run(["make", "-C", f"{here}/build/x64-linux", "install"], check=True)
+    subprocess.run(["ninja"], cwd=f"{here}/build/x64-linux", check=True)
+    subprocess.run(["ninja", "install"], cwd=f"{here}/build/x64-linux", check=True)
     cleanup_zconf_h()
 
 
 def main():
-    print(f"platform system: {platform.system()}, machine: {platform.machine()}", flush=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--rebuild", action="store_true")
+    parser_args = parser.parse_args()
+
+    here = Path(__file__).parent.resolve()
+    if parser_args.rebuild:
+        shutil.rmtree(f"{here}/build")
 
     if platform.system() == "Windows":
         build_x64_windows_binaries()
