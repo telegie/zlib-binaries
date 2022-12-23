@@ -19,7 +19,7 @@ def build_x64_windows_binaries():
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-windows",
                     "-A" "x64",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-windows"],
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/output/x64-windows"],
                    check=True)
     subprocess.run(["msbuild",
                     f"{here}/build/x64-windows/INSTALL.vcxproj",
@@ -35,7 +35,7 @@ def build_arm64_mac_binaries():
                     "-B", f"{here}/build/arm64-mac",
                     "-G", "Ninja",
                     "-D", "CMAKE_OSX_ARCHITECTURES=arm64",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/arm64-mac"],
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/output/arm64-mac"],
                    check=True)
     subprocess.run(["ninja"], cwd=f"{here}/build/arm64-mac", check=True)
     subprocess.run(["ninja", "install"], cwd=f"{here}/build/arm64-mac", check=True)
@@ -49,7 +49,7 @@ def build_x64_mac_binaries():
                     "-B", f"{here}/build/x64-mac",
                     "-G", "Ninja",
                     "-D", "CMAKE_OSX_ARCHITECTURES=x86_64",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-mac"],
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/output/x64-mac"],
                    check=True)
     subprocess.run(["ninja"], cwd=f"{here}/build/x64-mac", check=True)
     subprocess.run(["ninja", "install"], cwd=f"{here}/build/x64-mac", check=True)
@@ -62,7 +62,7 @@ def build_x64_linux_binaries():
                     "-S", f"{here}/zlib",
                     "-B", f"{here}/build/x64-linux",
                     "-G", "Ninja",
-                    "-D", f"CMAKE_INSTALL_PREFIX={here}/install/x64-linux"],
+                    "-D", f"CMAKE_INSTALL_PREFIX={here}/output/x64-linux"],
                    check=True)
     subprocess.run(["ninja"], cwd=f"{here}/build/x64-linux", check=True)
     subprocess.run(["ninja", "install"], cwd=f"{here}/build/x64-linux", check=True)
