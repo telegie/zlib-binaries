@@ -75,8 +75,9 @@ def main():
     parser_args = parser.parse_args()
 
     here = Path(__file__).parent.resolve()
-    if parser_args.rebuild:
-        shutil.rmtree(f"{here}/build")
+    build_path = Path(f"{here}/build")
+    if parser_args.rebuild and build_path.exists():
+        shutil.rmtree(build_path)
 
     if platform.system() == "Windows":
         build_x64_windows_binaries()
