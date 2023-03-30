@@ -1,3 +1,5 @@
+Archieved: has been replaced by the /zlib-build folder in telegie-app.
+
 # zlib-binaries
 
 ## How to Build
